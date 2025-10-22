@@ -64,19 +64,41 @@ app.post('/generate-image', async (c) => {
                         return c.json({ error: 'Missing Replicate API token. Please provide it in the X-Replicate-Api-Token header.' }, 400);
                 }
                 const replicate = new Replicate({ auth: userToken });
-                const model = 'black-forest-labs/flux-kontext-pro';
+                const model = 'bria/fibo';
 
-                const { prompt, input_image } = await c.req.json();
+                const { prompt, image, structured_prompt } = await c.req.json();
 
                 // Generate image with Replicate
-                const output = await replicate.run(model, {
+                const output: any = await replicate.run(model, {
                         input: {
                                 prompt,
-                                input_image,
+                                image,
+                                structured_prompt
                         },
                 });
 
-                const replicateImageUrl = output as string;
+                // Normalize output to an image URL string
+                let replicateImageUrl: string;
+                if (typeof output === 'string') {
+                        replicateImageUrl = output;
+                } else if (Array.isArray(output)) {
+                        const first = output[0];
+                        if (typeof first === 'string') {
+                                replicateImageUrl = first;
+                        } else if (first && typeof first.url === 'function') {
+                                replicateImageUrl = first.url();
+                        } else if (first && typeof first.url === 'string') {
+                                replicateImageUrl = first.url;
+                        } else {
+                                throw new Error('Unexpected output format from model');
+                        }
+                } else if (output && typeof output.url === 'function') {
+                        replicateImageUrl = output.url();
+                } else if (output && typeof output.url === 'string') {
+                        replicateImageUrl = output.url;
+                } else {
+                        throw new Error('Unexpected output format from model');
+                }
 
                 // Upload to Cloudflare Images for permanent storage
                 const cloudflareImageUrl = await uploadToCloudflareImages(

@@ -25,12 +25,12 @@ function PoweredByBanner() {
   return (
     <div className="bg-orange-500 text-white text-center text-base md:text-lg py-2">
       <a
-        href="https://replicate.com/black-forest-labs/flux-kontext-pro?utm_source=project&utm_campaign=kontext-chat"
+        href="https://replicate.com/bria/fibo?utm_source=project&utm_campaign=kontext-chat"
         target="_blank"
         rel="noopener noreferrer"
         className="underline"
       >
-        Powered by FLUX.1 Kontext on Replicate
+        Powered by FIBO on Replicate
       </a>
     </div>
   );
@@ -314,7 +314,7 @@ function App() {
       console.log('Sending request to /generate-image...');
       const requestBody = {
         prompt: input,
-        input_image: imageDataUrl
+        image: imageDataUrl
       };
       console.log('Request body size:', JSON.stringify(requestBody).length);
 
@@ -583,7 +583,7 @@ function App() {
               {/* Footer Text */}
               <div className="mt-8 pt-6 border-t border-gray-200">
                 <p className="text-gray-600 text-base md:text-lg leading-relaxed text-center">
-                  Kontext Chat is powered by <a href="https://replicate.com/black-forest-labs/flux-kontext-pro?utm_source=project&utm_campaign=kontext-chat" className="underline text-orange-600 hover:text-orange-700">Flux Kontext Pro</a>, a new image model from <a href="https://black-forest-labs.com/" className="underline text-orange-600 hover:text-orange-700">Black Forest Labs</a>, running on <a href="https://replicate.com?utm_source=project&utm_campaign=kontext-chat" className="underline text-orange-600 hover:text-orange-700">Replicate</a>. The app is built with Hono and React, running on <a href="https://workers.dev/" className="underline text-orange-600 hover:text-orange-700">Cloudflare Workers</a>. Learn how to build your own app by taking a look at the <a href="https://github.com/replicate/kontext-chat" className="underline text-orange-600 hover:text-orange-700">source code</a> on GitHub.
+                  Fibo Chat is powered by <a href="https://replicate.com/bria/fibo?utm_source=project&utm_campaign=kontext-chat" className="underline text-orange-600 hover:text-orange-700">FIBO</a> on <a href="https://replicate.com?utm_source=project&utm_campaign=kontext-chat" className="underline text-orange-600 hover:text-orange-700">Replicate</a>. The app is built with Hono and React, running on <a href="https://workers.dev/" className="underline text-orange-600 hover:text-orange-700">Cloudflare Workers</a>. Learn how to build your own app by taking a look at the <a href="https://github.com/replicate/kontext-chat" className="underline text-orange-600 hover:text-orange-700">source code</a> on GitHub.
                 </p>
               </div>
             </div>
@@ -605,7 +605,7 @@ function App() {
               <img 
                 src="/kontext-chat-rainbow.png" 
                 className="w-1/3 md:w-1/4 mx-auto cursor-pointer hover:opacity-90 transition-opacity" 
-                alt="Kontext Chat" 
+                alt="Fibo Chat" 
                 onClick={resetApp}
                 title="Back to upload"
               />
