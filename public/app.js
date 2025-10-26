@@ -1,22 +1,22 @@
 const starterImages = [
   {
-    imageUrl: 'https://replicate.delivery/pbxt/N55l5TWGh8mSlNzW8usReoaNhGbFwvLeZR3TX1NL4pd2Wtfv/replicate-prediction-f2d25rg6gnrma0cq257vdw2n4c.png',
+    imageUrl: 'http://labs-assets.bria.ai/photorealistic__high_resolution_rendering__balloon_of_lettering___HAPPY_NEW_YEAR.png',
     suggestedPrompt: 'make it into a 90s cartoon',
   },
   {
-    imageUrl: 'https://replicate.delivery/pbxt/N5cepICxyaagdvULl0phi7ImdxuFz05TR2l623zqxhNR9q5Y/van-gogh.jpeg',
+    imageUrl: 'http://labs-assets.bria.ai/A_cozy_rooftop_garden_in_Paris_overlooking_Paris__rustic_wooden_decking__woven_r.png',
     suggestedPrompt: 'Using this style, a panda astronaut riding a unicorn',
   },
   {
-    imageUrl: 'https://replicate.delivery/xezq/OKWfR6jlQwzekkSsfQOppX55O3vaNv6xZ4qY6RfHjwQHOwDTB/tmp9p3v3brc.png',
+    imageUrl: 'http://labs-assets.bria.ai/hyper_realistic_ultra_detailed_digital_illustration_back_view_of_an_astronaut_wi.png',
     suggestedPrompt: 'remove the text from the sweatshirt',
   },
   {
-    imageUrl: 'https://replicate.delivery/pbxt/N5trWTJCJQbJVWz5nhLEscS1w16r1hGl5zuWceJhVSnWZfGu/mona-lisa-1024.jpg',
+    imageUrl: 'http://labs-assets.bria.ai/A_hyper_detailed__ultra_fluffy_owl_sitting_in_the_trees_at_night__looking_direct.png',
     suggestedPrompt: 'close her eyes',
   },
 	{
-    imageUrl: 'https://replicate.delivery/mgxm/b033ff07-1d2e-4768-a137-6c16b5ed4bed/d_1.png',
+    imageUrl: 'http://labs-assets.bria.ai/A_clear_bottle_of_hair_serum_with_golden_liquid__surrounded_by_fresh_botanical_i.png',
     suggestedPrompt: 'Convert to a high-quality restoration, enhancing details and removing any damage or degradation',
   }
 ]
