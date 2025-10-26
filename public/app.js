@@ -23,7 +23,7 @@ const starterImages = [
 
 function PoweredByBanner() {
   return (
-    <div className="bg-orange-500 text-white text-center text-base md:text-lg py-2">
+    <div className="bg-[#5300c9] text-white text-center text-base md:text-lg py-2">
       <a
         href="https://replicate.com/bria/fibo?utm_source=project&utm_campaign=kontext-chat"
         target="_blank"
@@ -486,15 +486,15 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#e04f0c] to-[#f47020] md:overflow-auto overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-[#5300c9] to-[#8800ff] md:overflow-auto overflow-hidden">
       {/* Replicate API Token Modal */}
       {showTokenModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
           <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full flex flex-col items-center">
-            <img src="/kontext-chat-rainbow.png" className="w-1/3 mx-auto mb-4" alt="Kontext Chat" />
+            <img src="/bria-logo.svg" className="w-1/3 mx-auto mb-4" alt="Bria" />
             <h2 className="text-xl font-bold mb-2 text-center">Enter your Replicate API Token</h2>
             <p className="text-gray-700 text-center mb-4">To use Kontext Chat, you'll need a Replicate API token.<br />
-              <a href="https://replicate.com/account/api-tokens?new-token-name=kontext-chat" target="_blank" rel="noopener noreferrer" className="underline text-orange-600">Create a token here</a> and paste it below.
+              <a href="https://replicate.com/account/api-tokens?new-token-name=kontext-chat" target="_blank" rel="noopener noreferrer" className="underline text-[#5300c9]">Create a token here</a> and paste it below.
             </p>
             <form onSubmit={handleTokenSubmit} className="w-full flex flex-col items-center">
               <input
@@ -508,7 +508,7 @@ function App() {
               {tokenError && <div className="text-red-600 text-sm mb-2">{tokenError}</div>}
               <button
                 type="submit"
-                className="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-lg px-4 py-2 font-semibold transition-colors"
+                className="w-full bg-[#5300c9] hover:bg-[#3f00a0] text-white rounded-lg px-4 py-2 font-semibold transition-colors"
               >
                 Save Token
               </button>
@@ -523,7 +523,7 @@ function App() {
           <div className="w-full md:max-w-4xl bg-white md:shadow-md flex flex-col h-screen md:h-auto overflow-hidden md:overflow-visible">
             {/* Logo */}
             <div className="p-4 md:p-2 bg-white border-b border-gray-200">
-              <img src="/kontext-chat-rainbow.png" className="w-1/3 md:w-1/4 mx-auto" alt="Kontext Chat" />
+              <img src="/bria-logo.svg" className="w-1/3 md:w-1/4 mx-auto" alt="Bria" />
             </div>
             <PoweredByBanner />
 
@@ -540,7 +540,7 @@ function App() {
                 className={`border-2 border-dashed rounded-2xl p-6 md:p-12 text-center cursor-pointer mb-12 ${
                   dragActive
                     ? 'border-green-400 bg-green-50 text-green-700'
-                    : 'border-gray-300 bg-gray-50 hover:border-orange-400 hover:bg-orange-50 text-gray-700 hover:text-orange-700'
+                    : 'border-gray-300 bg-gray-50 hover:border-[#5300c9] hover:bg-purple-50 text-gray-700 hover:text-[#5300c9]'
                 }`}
                 onClick={() => fileInputRef.current?.click()}
               >
@@ -583,7 +583,7 @@ function App() {
               {/* Footer Text */}
               <div className="mt-8 pt-6 border-t border-gray-200">
                 <p className="text-gray-600 text-base md:text-lg leading-relaxed text-center">
-                  Fibo Chat is powered by <a href="https://replicate.com/bria/fibo?utm_source=project&utm_campaign=kontext-chat" className="underline text-orange-600 hover:text-orange-700">FIBO</a> on <a href="https://replicate.com?utm_source=project&utm_campaign=kontext-chat" className="underline text-orange-600 hover:text-orange-700">Replicate</a>. The app is built with Hono and React, running on <a href="https://workers.dev/" className="underline text-orange-600 hover:text-orange-700">Cloudflare Workers</a>. Learn how to build your own app by taking a look at the <a href="https://github.com/replicate/kontext-chat" className="underline text-orange-600 hover:text-orange-700">source code</a> on GitHub.
+                  Fibo Chat is powered by <a href="https://replicate.com/bria/fibo?utm_source=project&utm_campaign=kontext-chat" className="underline text-[#5300c9] hover:text-[#3f00a0]">FIBO</a> on <a href="https://replicate.com?utm_source=project&utm_campaign=kontext-chat" className="underline text-[#5300c9] hover:text-[#3f00a0]">Replicate</a>. The app is built with Hono and React, running on <a href="https://workers.dev/" className="underline text-[#5300c9] hover:text-[#3f00a0]">Cloudflare Workers</a>. Learn how to build your own app by taking a look at the <a href="https://github.com/replicate/kontext-chat" className="underline text-[#5300c9] hover:text-[#3f00a0]">source code</a> on GitHub.
                 </p>
               </div>
             </div>
@@ -595,7 +595,7 @@ function App() {
             <div className="p-4 md:p-2 bg-white border-b border-gray-200 relative flex items-center flex-shrink-0">
               <button
                 onClick={resetApp}
-                className="absolute left-4 w-8 h-8 bg-orange-500 hover:bg-orange-600 text-white rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105"
+                className="absolute left-4 w-8 h-8 bg-[#5300c9] hover:bg-[#3f00a0] text-white rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105"
                 title="Back to upload"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -603,9 +603,9 @@ function App() {
                 </svg>
               </button>
               <img 
-                src="/kontext-chat-rainbow.png" 
+                src="/bria-logo.svg" 
                 className="w-1/3 md:w-1/4 mx-auto cursor-pointer hover:opacity-90 transition-opacity" 
-                alt="Fibo Chat" 
+                alt="Bria" 
                 onClick={resetApp}
                 title="Back to upload"
               />
@@ -651,7 +651,7 @@ function App() {
                     )}
                     {msg.type === 'loading' && (
                       <div className="flex flex-col items-center gap-4 py-8 px-12">
-                        <div className="w-16 h-16 border-4 border-gray-300 border-t-orange-500 rounded-full animate-spin"></div>
+                        <div className="w-16 h-16 border-4 border-gray-300 border-t-[#5300c9] rounded-full animate-spin"></div>
                         <span className="text-gray-600">Generating image...</span>
                       </div>
                     )}
@@ -678,7 +678,7 @@ function App() {
             <div className="fixed bottom-0 left-0 right-0 bg-white border-t p-4 md:relative md:border-t" style={{paddingBottom: 'calc(1rem + env(safe-area-inset-bottom))'}}>
               <form onSubmit={handleSend} className="flex items-end gap-3 max-w-4xl mx-auto">
                 <div className="flex-1 relative">
-                  <div className="bg-gray-50 rounded-3xl px-4 py-3 pr-12 border-2 border-transparent focus-within:border-orange-500 transition-colors">
+                  <div className="bg-gray-50 rounded-3xl px-4 py-3 pr-12 border-2 border-transparent focus-within:border-[#5300c9] transition-colors">
                     <textarea
                       ref={textareaRef}
                       value={input}
@@ -713,7 +713,7 @@ function App() {
                       <button
                         type="submit"
                         disabled={!input.trim() || loading}
-                        className="absolute right-2 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-orange-500 hover:bg-orange-600 disabled:bg-gray-300 text-white rounded-full flex items-center justify-center transition-all duration-200 disabled:cursor-not-allowed"
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-[#5300c9] hover:bg-[#3f00a0] disabled:bg-gray-300 text-white rounded-full flex items-center justify-center transition-all duration-200 disabled:cursor-not-allowed"
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
