@@ -1,23 +1,23 @@
 const starterImages = [
   {
     imageUrl: 'http://labs-assets.bria.ai/photorealistic__high_resolution_rendering__balloon_of_lettering___HAPPY_NEW_YEAR.png',
-    suggestedPrompt: 'make it into a 90s cartoon',
+    suggestedPrompt: 'photorealistic, high resolution rendering, balloon of lettering, "HAPPY NEW YEAR 2026", used color is Pantone Bran, Crocus, Deja vu blue, perfect composition and alignment, natural light set, white backdrop, ultra realistic, rich detail',
   },
   {
     imageUrl: 'http://labs-assets.bria.ai/A_cozy_rooftop_garden_in_Paris_overlooking_Paris__rustic_wooden_decking__woven_r.png',
-    suggestedPrompt: 'Using this style, a panda astronaut riding a unicorn',
+    suggestedPrompt: 'A cozy rooftop garden in Paris under the warm glow of lights at night , overlooking Paris, rustic wooden decking, woven rattan furniture, lush climbing vines and potted olive trees, long shadows dancing across linen fabrics, tranquil ambiance blending urban charm with organic serenity, effortlessly chic Parisian vibe. brown orange and blue hues',
   },
   {
     imageUrl: 'http://labs-assets.bria.ai/hyper_realistic_ultra_detailed_digital_illustration_back_view_of_an_astronaut_wi.png',
-    suggestedPrompt: 'remove the text from the sweatshirt',
+    suggestedPrompt: 'hyper realistic ultra detailed digital illustration back-view of an astronaut with an orange suit standing on a cliff of an alien planet overlooking a majestic martian landscape',
   },
   {
     imageUrl: 'http://labs-assets.bria.ai/A_hyper_detailed__ultra_fluffy_owl_sitting_in_the_trees_at_night__looking_direct.png',
-    suggestedPrompt: 'close her eyes',
+    suggestedPrompt: 'A hyper-detailed, ultra-fluffy owl sitting in the trees at night, looking directly at the camera with wide, adorable, expressive eyes. Its feathers are soft and voluminous, catching the cool moonlight with subtle silver highlights. The owl\'s gaze is curious and full of charm, giving it a whimsical, storybook-like personality.',
   },
 	{
     imageUrl: 'http://labs-assets.bria.ai/A_clear_bottle_of_hair_serum_with_golden_liquid__surrounded_by_fresh_botanical_i.png',
-    suggestedPrompt: 'Convert to a high-quality restoration, enhancing details and removing any damage or degradation',
+    suggestedPrompt: 'A clear bottle of hair serum with golden liquid, surrounded by fresh botanical ingredients like argan nuts and leaves, bright natural sunlight — placed on a clean stone surface, soft diffused highlights, translucent reflections, warm golden tones, dewy freshness in the air, delicate shadows from leaves, premium organic aesthetic, serene and radiant atmosphere.',
   }
 ]
 
