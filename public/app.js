@@ -47,7 +47,7 @@ function App() {
   const [abortController, setAbortController] = React.useState(null);
   // New: track if a starter image was used (for future logic if needed)
   const [starterUsed, setStarterUsed] = React.useState(false);
-  
+
   // Replicate API token state
   const [replicateToken, setReplicateToken] = React.useState(() => {
     if (typeof window !== 'undefined') {
@@ -583,7 +583,7 @@ function App() {
               {/* Footer Text */}
               <div className="mt-8 pt-6 border-t border-gray-200">
                 <p className="text-gray-600 text-base md:text-lg leading-relaxed text-center">
-                  Fibo Chat is powered by <a href="https://replicate.com/bria/fibo?utm_source=project&utm_campaign=kontext-chat" className="underline text-[#5300c9] hover:text-[#3f00a0]">FIBO</a> on <a href="https://replicate.com?utm_source=project&utm_campaign=kontext-chat" className="underline text-[#5300c9] hover:text-[#3f00a0]">Replicate</a>. The app is built with Hono and React, running on <a href="https://workers.dev/" className="underline text-[#5300c9] hover:text-[#3f00a0]">Cloudflare Workers</a>. Learn how to build your own app by taking a look at the <a href="https://github.com/replicate/kontext-chat" className="underline text-[#5300c9] hover:text-[#3f00a0]">source code</a> on GitHub.
+                  FIBO Chat is powered by <a href="https://replicate.com/bria/fibo?utm_source=project&utm_campaign=kontext-chat" className="underline text-[#5300c9] hover:text-[#3f00a0]">FIBO</a> on <a href="https://replicate.com?utm_source=project&utm_campaign=kontext-chat" className="underline text-[#5300c9] hover:text-[#3f00a0]">Replicate</a>.
                 </p>
               </div>
             </div>
@@ -602,10 +602,10 @@ function App() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                 </svg>
               </button>
-              <img 
-                src="/bria-logo.svg" 
-                className="w-1/3 md:w-1/4 mx-auto cursor-pointer hover:opacity-90 transition-opacity" 
-                alt="Bria" 
+              <img
+                src="/bria-logo.svg"
+                className="w-1/3 md:w-1/4 mx-auto cursor-pointer hover:opacity-90 transition-opacity"
+                alt="Bria"
                 onClick={resetApp}
                 title="Back to upload"
               />
