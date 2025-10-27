@@ -17,6 +17,9 @@ async function uploadToCloudflareImages(
 ): Promise<string> {
         try {
                 // Fetch the image from Replicate
+                console.log("accountId", accountId);
+                console.log("apiToken", apiToken);
+                console.log("imageUrl", imageUrl);
                 const imageResponse = await fetch(imageUrl);
                 if (!imageResponse.ok) {
                         throw new Error(`Failed to fetch image: ${imageResponse.status}`);
@@ -64,7 +67,7 @@ app.post('/generate-image', async (c) => {
                         return c.json({ error: 'Missing Replicate API token. Please provide it in the X-Replicate-Api-Token header.' }, 400);
                 }
                 const replicate = new Replicate({ auth: userToken });
-                const model = 'bria/fibo';
+                const model = 'black-forest-labs/flux-kontext-pro';
 
                 const { prompt, structured_prompt } = await c.req.json();
 
@@ -100,14 +103,15 @@ app.post('/generate-image', async (c) => {
                 }
 
                 // Upload to Cloudflare Images for permanent storage
-                const cloudflareImageUrl = await uploadToCloudflareImages(
-                        replicateImageUrl,
-                        c.env.CLOUDFLARE_ACCOUNT_ID,
-                        c.env.CLOUDFLARE_IMAGES_API_TOKEN
-                );
+                //const cloudflareImageUrl = await uploadToCloudflareImages(
+                //        replicateImageUrl,
+                //        c.env.CLOUDFLARE_ACCOUNT_ID,
+                //        c.env.CLOUDFLARE_IMAGES_API_TOKEN
+                //);
 
                 // Return the Cloudflare Images URL instead of the temporary Replicate URL
-                return c.json({ imageUrl: cloudflareImageUrl });
+                //return c.json({ imageUrl: cloudflareImageUrl });
+                return c.json({ imageUrl: replicateImageUrl });
         } catch (error) {
                 console.error('Error in generate-image:', error);
                 return c.json({ error: error.message }, 500);

@@ -464,7 +464,7 @@ function App() {
       // Add initial messages
       setMessages([
         { type: 'image', image: url, imageBlob: scaledBlob, from: 'assistant', id: Date.now() },
-        { type: 'text', text: 'Image uploaded! How would you like to edit it?', from: 'system', id: Date.now() + 1 }
+        { type: 'text', text: 'Image uploaded! How would you like to refine it?', from: 'system', id: Date.now() + 1 }
       ]);
 
       // Switch to chat mode
@@ -830,7 +830,7 @@ function App() {
               {/* Intro Text */}
               <div className="text-center mb-6">
                 <p className="text-gray-700 text-base md:text-lg">
-                  Chat with images to edit them.
+                  Chat with images to refine them.
                 </p>
               </div>
 
@@ -960,7 +960,7 @@ function App() {
                       <button
                         onClick={() => deleteFromMessage(msg.id)}
                         className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110"
-                        title="Delete from here and continue editing"
+                        title="Delete from here and continue refining"
                       >
                         <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
@@ -981,7 +981,7 @@ function App() {
                       ref={textareaRef}
                       value={input}
                       onChange={(e) => setInput(e.target.value)}
-                      placeholder="Describe your edit..."
+                      placeholder="Describe your refinement..."
                       className="w-full bg-transparent border-none outline-none resize-none text-base"
                       rows="1"
                       style={{ minHeight: '24px', maxHeight: '120px' }}
