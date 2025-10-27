@@ -66,13 +66,12 @@ app.post('/generate-image', async (c) => {
                 const replicate = new Replicate({ auth: userToken });
                 const model = 'bria/fibo';
 
-                const { prompt, image, structured_prompt } = await c.req.json();
+                const { prompt, structured_prompt } = await c.req.json();
 
                 // Generate image with Replicate
                 const output: any = await replicate.run(model, {
                         input: {
                                 prompt,
-                                image,
                                 structured_prompt
                         },
                 });
