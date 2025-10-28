@@ -4,7 +4,7 @@
  */
 {
         "$schema": "node_modules/wrangler/config-schema.json",
-        "name": "kontext-chat",
+        "name": "fibo-chat",
         "main": "src/index.ts",
         "compatibility_date": "2025-05-29",
         "compatibility_flags": [
