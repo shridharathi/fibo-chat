@@ -897,7 +897,7 @@ function App() {
       <div className="min-h-screen flex flex-col md:flex md:items-center h-screen md:h-auto">
         {showUpload ? (
           /* Upload Section */
-          <div className="w-full md:max-w-6xl bg-white md:shadow-md flex flex-col h-screen md:h-auto overflow-hidden md:overflow-visible">
+          <div className="w-full md:w-[1152px] bg-white md:shadow-md flex flex-col h-screen md:h-auto overflow-hidden md:overflow-visible">
             {/* Logo */}
             <div className="p-4 md:p-2 bg-white border-b border-gray-200">
               <img src="/bria-logo.svg" className="w-1/3 md:w-1/4 mx-auto" alt="Bria" />
@@ -1016,7 +1016,7 @@ function App() {
           </div>
         ) : (
           /* Chat Section */
-          <div className="w-full md:max-w-6xl bg-white md:shadow-md overflow-hidden flex flex-col min-h-0 h-screen md:h-screen relative">
+          <div className="w-full md:w-[1152px] bg-white md:shadow-md overflow-hidden flex flex-col min-h-0 h-screen md:h-screen relative">
             {/* Chat Header with Logo */}
             <div className="p-4 md:p-2 bg-white border-b border-gray-200 relative flex items-center flex-shrink-0">
               <button
@@ -1040,7 +1040,7 @@ function App() {
             <PoweredByBanner />
 
             {/* Chat Messages */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-4 min-h-[calc(100vh-240px)] pb-[300px] md:pb-[300px]" ref={chatContainerRef}>
+            <div className="flex-1 overflow-y-auto p-6 space-y-4 pb-[200px] md:pb-6" ref={chatContainerRef}>
               {messages.map((msg) => (
                 <div
                   key={msg.id}
@@ -1090,8 +1090,8 @@ function App() {
             </div>
 
             {/* Input Area */}
-            <div className="fixed bottom-0 left-0 right-0 bg-white border-t p-4 md:relative md:border-t" style={{paddingBottom: 'calc(1rem + env(safe-area-inset-bottom))'}}>
-              <form onSubmit={handleSend} className="flex items-end gap-3 max-w-4xl mx-auto">
+            <div className="fixed bottom-0 left-0 right-0 bg-white border-t p-4 md:relative md:border-t md:p-6 flex-shrink-0" style={{paddingBottom: 'calc(1rem + env(safe-area-inset-bottom))'}}>
+              <form onSubmit={handleSend} className="flex items-end gap-3 w-full">
                 <div className="flex-1 relative">
                   <div className="bg-gray-50 rounded-3xl px-4 py-3 pr-12 border-2 border-transparent focus-within:border-[#5300c9] transition-colors">
                     <textarea
