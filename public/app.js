@@ -1,7 +1,7 @@
 const starterImages = [
   {
     imageUrl: 'http://labs-assets.bria.ai/photorealistic__high_resolution_rendering__balloon_of_lettering___HAPPY_NEW_YEAR.png',
-    suggestedPrompt: 'photorealistic, high resolution rendering, balloon of lettering, "HAPPY NEW YEAR 2026", used color is Pantone Bran, Crocus, Deja vu blue, perfect composition and alignment, natural light set, white backdrop, ultra realistic, rich detail',
+    suggestedPrompt: 'Change it to say "Happy Birthday" instead of "Happy New Year 2026"',
 		structured_prompt: {
 			"short_description": "A photorealistic, high-resolution rendering of balloon lettering spelling out \"HAPPY NEW YEAR 2026\" against a pristine white backdrop. The balloons are meticulously arranged with perfect composition and alignment, showcasing a vibrant color palette of Pantone Bran, Crocus, and Deja Vu Blue. Natural light illuminates the scene, creating subtle, soft shadows that enhance the ultra-realistic and rich detail of each balloon, emphasizing their smooth, reflective surfaces and volumetric presence.",
 			"objects": [
@@ -52,7 +52,7 @@ const starterImages = [
   },
   {
     imageUrl: 'http://labs-assets.bria.ai/A_cozy_rooftop_garden_in_Paris_overlooking_Paris__rustic_wooden_decking__woven_r.png',
-    suggestedPrompt: 'A cozy rooftop garden in Paris under the warm glow of lights at night , overlooking Paris, rustic wooden decking, woven rattan furniture, lush climbing vines and potted olive trees, long shadows dancing across linen fabrics, tranquil ambiance blending urban charm with organic serenity, effortlessly chic Parisian vibe. brown orange and blue hues',
+    suggestedPrompt: 'Make it night time',
 		structured_prompt: {
 			"short_description": "An enchanting rooftop garden in Paris, bathed in the warm glow of late afternoon, offers a serene escape with panoramic views of the city. Rustic wooden decking forms the foundation, adorned with comfortable woven rattan furniture. Lush green climbing vines cascade gracefully, while potted olive trees add a touch of Mediterranean charm. Long, dancing shadows stretch across soft linen fabrics draped over furniture, enhancing the tranquil ambiance. The scene effortlessly blends urban sophistication with organic serenity, capturing an authentically chic Parisian vibe through a palette of warm browns, oranges, and subtle blues.",
 			"objects": [
@@ -133,7 +133,7 @@ const starterImages = [
   },
   {
     imageUrl: 'http://labs-assets.bria.ai/hyper_realistic_ultra_detailed_digital_illustration_back_view_of_an_astronaut_wi.png',
-    suggestedPrompt: 'hyper realistic ultra detailed digital illustration back-view of an astronaut with an orange suit standing on a cliff of an alien planet overlooking a majestic martian landscape',
+    suggestedPrompt: 'Make his suit purple',
 		structured_prompt: {
 			"short_description": "A hyper-realistic, ultra-detailed digital illustration from a back-view perspective, featuring an astronaut in a vibrant orange suit standing on the rugged cliff edge of an alien planet. The astronaut gazes out over a breathtaking Martian-like landscape, characterized by vast canyons, towering rock formations, and a distant, majestic celestial body. The scene is bathed in warm, golden hues, emphasizing the desolate beauty and grandeur of the extraterrestrial environment. The composition highlights the solitary figure against the immense alien vista, evoking a sense of wonder and exploration.",
 			"objects": [
@@ -198,7 +198,7 @@ const starterImages = [
   },
   {
     imageUrl: 'http://labs-assets.bria.ai/A_hyper_detailed__ultra_fluffy_owl_sitting_in_the_trees_at_night__looking_direct.png',
-    suggestedPrompt: 'A hyper-detailed, ultra-fluffy owl sitting in the trees at night, looking directly at the camera with wide, adorable, expressive eyes. Its feathers are soft and voluminous, catching the cool moonlight with subtle silver highlights. The owl\'s gaze is curious and full of charm, giving it a whimsical, storybook-like personality.',
+    suggestedPrompt: 'Close his eyes',
 		structured_prompt: {
 			"short_description": "A hyper-detailed, ultra-fluffy owl is perched on a tree branch at night, its voluminous feathers catching the cool moonlight with subtle silver highlights. The owl looks directly at the viewer with wide, adorable, expressive eyes, conveying a curious and charming gaze. The scene is set against a dark, mystical forest background, emphasizing the owl's whimsical, storybook-like personality. The overall image evokes a sense of wonder and enchantment, with intricate details on the owl's plumage and the surrounding nocturnal environment.",
 			"objects": [
@@ -241,7 +241,7 @@ const starterImages = [
   },
 	{
     imageUrl: 'http://labs-assets.bria.ai/A_clear_bottle_of_hair_serum_with_golden_liquid__surrounded_by_fresh_botanical_i.png',
-    suggestedPrompt: 'A clear bottle of hair serum with golden liquid, surrounded by fresh botanical ingredients like argan nuts and leaves, bright natural sunlight — placed on a clean stone surface, soft diffused highlights, translucent reflections, warm golden tones, dewy freshness in the air, delicate shadows from leaves, premium organic aesthetic, serene and radiant atmosphere.',
+    suggestedPrompt: 'Add the brand name "Bria" to the bottle',
 		structured_prompt: {
 			"short_description": "A pristine, clear glass bottle of hair serum, filled with a radiant golden liquid, stands elegantly at the center of the frame. It is artfully arranged amidst a scattering of fresh, vibrant botanical ingredients, including textured argan nuts and delicate green leaves, some still bearing tiny dewdrops. The scene is bathed in bright, natural sunlight, creating soft, diffused highlights and translucent reflections on the bottle and the smooth, clean stone surface it rests upon. The overall atmosphere is one of serene radiance, emphasizing a premium, organic aesthetic with warm golden tones and subtle, delicate shadows cast by the leaves.",
 			"objects": [
@@ -339,17 +339,13 @@ function App() {
   const [abortController, setAbortController] = React.useState(null);
   // New: track if a starter image was used (for future logic if needed)
   const [starterUsed, setStarterUsed] = React.useState(false);
-
-  // Replicate API token state
-  const [replicateToken, setReplicateToken] = React.useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('replicateApiToken') || '';
-    }
-    return '';
-  });
-  const [showTokenModal, setShowTokenModal] = React.useState(!replicateToken);
-  const [tokenInput, setTokenInput] = React.useState('');
-  const [tokenError, setTokenError] = React.useState('');
+  // Initial generation selection state
+  const [initialImageBlob, setInitialImageBlob] = React.useState(null);
+  const [initialImagePreviewUrl, setInitialImagePreviewUrl] = React.useState('');
+  const [initialImageUrl, setInitialImageUrl] = React.useState(''); // for starter URL selection
+  // Separate inputs for first-screen flows
+  const [scratchInput, setScratchInput] = React.useState('');
+  const [imageInput, setImageInput] = React.useState('');
 
   // Simple desktop check
   const [isDesktop, setIsDesktop] = React.useState(false);
@@ -460,15 +456,10 @@ function App() {
       // Scale down the image to 1 megapixel
       const scaledBlob = await scaleImageTo1Megapixel(file);
       const url = URL.createObjectURL(scaledBlob);
-
-      // Add initial messages
-      setMessages([
-        { type: 'image', image: url, imageBlob: scaledBlob, from: 'assistant', id: Date.now() },
-        { type: 'text', text: 'Image uploaded! How would you like to refine it?', from: 'system', id: Date.now() + 1 }
-      ]);
-
-      // Switch to chat mode
-      setShowUpload(false);
+      // Store selection for initial generation with prompt
+      setInitialImageBlob(scaledBlob);
+      setInitialImagePreviewUrl(url);
+      setInitialImageUrl(''); // clear any starter selection
     } catch (error) {
       alert('Failed to process image: ' + error.message);
     }
@@ -476,24 +467,12 @@ function App() {
 
   // Handle click on starter image
   async function handleStarterImageClick(starter) {
-    // Fetch the image as a blob so it behaves like uploaded images
-    try {
-      setLoading(true);
-      const res = await fetch(starter.imageUrl);
-      const blob = await res.blob();
-      // Add image as first message
-      setMessages([
-        { type: 'image', image: starter.imageUrl, imageBlob: blob, structuredPrompt: starter.structured_prompt, from: 'assistant', id: Date.now() },
-        { type: 'text', text: "Image loaded! Tell me how you'd like to refine it.", from: 'system', id: Date.now() + 1 }
-      ]);
-      setShowUpload(false);
-      setInput(starter.suggestedPrompt || '');
-      setStarterUsed(true);
-    } catch (err) {
-      alert('Failed to load starter image.');
-    } finally {
-      setLoading(false);
-    }
+    // Prepare starter image for initial generation; don't switch to chat yet
+    setInitialImageBlob(null);
+    setInitialImagePreviewUrl(starter.imageUrl);
+    setInitialImageUrl(starter.imageUrl);
+    setImageInput(starter.suggestedPrompt || '');
+    setStarterUsed(true);
   }
 
   // Helper function to convert blob to data URL
@@ -519,11 +498,20 @@ function App() {
 	// Get the most recent structured prompt from the chat
   function getLastStructuredPrompt() {
     for (let i = messages.length - 1; i >= 0; i--) {
-      if (messages[i].type === 'image' && messages[i].imageBlob) {
+      if (messages[i].type === 'image' && messages[i].structuredPrompt) {
         return messages[i].structuredPrompt;
       }
     }
     return null;
+  }
+
+  function getLastSeed() {
+    for (let i = messages.length - 1; i >= 0; i--) {
+      if (messages[i].type === 'image' && typeof messages[i].seed !== 'undefined') {
+        return messages[i].seed;
+      }
+    }
+    return undefined;
   }
 
   // Scale image function
@@ -586,13 +574,155 @@ function App() {
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
+    setInitialImageBlob(null);
+    setInitialImagePreviewUrl('');
+    setInitialImageUrl('');
+    setScratchInput('');
+    setImageInput('');
   }
+
+  async function blobToBase64(blob) {
+    const dataUrl = await blobToDataUrl(blob);
+    const commaIndex = dataUrl.indexOf(',');
+    return commaIndex !== -1 ? dataUrl.slice(commaIndex + 1) : dataUrl;
+  }
+
+  // Initial generation handler: start with an image + prompt
+  const generateInitialImageFromImage = async () => {
+    const promptText = imageInput.trim();
+    if (!promptText || loading) return;
+
+    setLoading(true);
+    const loadingMsg = { type: 'loading', from: 'assistant', id: Date.now() };
+    setMessages([{ type: 'text', text: promptText, from: 'user', id: Date.now() - 1 }, loadingMsg]);
+    setShowUpload(false);
+
+    try {
+      const controller = new AbortController();
+      setAbortController(controller);
+
+      const body = { prompt: promptText };
+      if (initialImageBlob) {
+        body.image = await blobToBase64(initialImageBlob);
+      } else if (initialImageUrl) {
+        body.imageUrl = initialImageUrl;
+      }
+
+      const res = await fetch('/generate-image-with-bria', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+        signal: controller.signal
+      });
+
+      if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(`HTTP ${res.status}: ${errorText}`);
+      }
+
+      const result = await res.json();
+      if (result.error) throw new Error(result.error);
+
+      const imageUrl = result.imageUrl;
+      const structuredPrompt = result.structuredPrompt;
+      const seed = result.seed;
+
+      const imageResponse = await fetch(imageUrl);
+      const imageBlob = await imageResponse.blob();
+
+      setMessages(prev => prev.map(msg =>
+        msg.type === 'loading'
+          ? { type: 'image', image: imageUrl, imageBlob, structuredPrompt, seed, from: 'assistant', id: msg.id }
+          : msg
+      ));
+
+      setInitialImageBlob(null);
+      setInitialImagePreviewUrl('');
+      setInitialImageUrl('');
+      setImageInput('');
+    } catch (err) {
+      if (err.name !== 'AbortError') {
+        setMessages(prev => prev.filter(msg => msg.type !== 'loading'));
+        setMessages(prev => [...prev, {
+          type: 'text',
+          text: 'Sorry, there was an error generating the image: ' + err.message,
+          from: 'assistant',
+          id: Date.now()
+        }]);
+      }
+    } finally {
+      setLoading(false);
+      setAbortController(null);
+    }
+  };
+
+  // Initial generation handler: start from scratch with text prompt only
+  const generateScratchImage = async () => {
+    const promptText = scratchInput.trim();
+    if (!promptText || loading) return;
+
+    setLoading(true);
+    const loadingMsg = { type: 'loading', from: 'assistant', id: Date.now() };
+    setMessages([{ type: 'text', text: promptText, from: 'user', id: Date.now() - 1 }, loadingMsg]);
+    setShowUpload(false);
+
+    try {
+      const controller = new AbortController();
+      setAbortController(controller);
+
+      const body = { prompt: promptText };
+
+      const res = await fetch('/generate-image-with-bria', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+        signal: controller.signal
+      });
+
+      if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(`HTTP ${res.status}: ${errorText}`);
+      }
+
+      const result = await res.json();
+      if (result.error) throw new Error(result.error);
+
+      const imageUrl = result.imageUrl;
+      const structuredPrompt = result.structuredPrompt;
+      const seed = result.seed;
+
+      const imageResponse = await fetch(imageUrl);
+      const imageBlob = await imageResponse.blob();
+
+      setMessages(prev => prev.map(msg =>
+        msg.type === 'loading'
+          ? { type: 'image', image: imageUrl, imageBlob, structuredPrompt, seed, from: 'assistant', id: msg.id }
+          : msg
+      ));
+
+      setScratchInput('');
+    } catch (err) {
+      if (err.name !== 'AbortError') {
+        setMessages(prev => prev.filter(msg => msg.type !== 'loading'));
+        setMessages(prev => [...prev, {
+          type: 'text',
+          text: 'Sorry, there was an error generating the image: ' + err.message,
+          from: 'assistant',
+          id: Date.now()
+        }]);
+      }
+    } finally {
+      setLoading(false);
+      setAbortController(null);
+    }
+  };
 
   // Handle sending a message
   const handleSend = async (e) => {
     e.preventDefault();
 		const lastStructuredPrompt = getLastStructuredPrompt()
-    if (!input.trim() || loading || !lastStructuredPrompt || !replicateToken) return;
+    const lastSeed = getLastSeed();
+    if (!input.trim() || loading || !lastStructuredPrompt) return;
 
     const userMsg = { type: 'text', text: input, from: 'user', id: Date.now() };
     setMessages(prev => [...prev, userMsg]);
@@ -609,16 +739,17 @@ function App() {
       setAbortController(controller);
 
 
-      console.log('Sending request to /generate-image...');
+      console.log('Sending request to /generate-image-with-bria...');
       const requestBody = {
         prompt: input,
-        structured_prompt: lastStructuredPrompt
+        structured_prompt: lastStructuredPrompt,
+        seed: lastSeed
       };
       console.log('Request body size:', JSON.stringify(requestBody).length);
 
-      const res = await fetch('/generate-image', {
+      const res = await fetch('/generate-image-with-bria', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-Replicate-Api-Token': replicateToken },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(requestBody),
         signal: controller.signal
       });
@@ -632,7 +763,7 @@ function App() {
         throw new Error(`HTTP ${res.status}: ${errorText}`);
       }
 
-      // The response is now JSON with the Cloudflare Images URL
+      // The response is JSON from BRIA endpoint
       const result = await res.json();
       console.log('Response result:', result);
 
@@ -641,6 +772,8 @@ function App() {
       }
 
       const imageUrl = result.imageUrl;
+      const structuredPromptOut = result.structuredPrompt;
+      const seedOut = result.seed;
       console.log('Cloudflare Images URL:', imageUrl);
 
       // Fetch the image to create a blob for local storage/UI purposes
@@ -651,7 +784,7 @@ function App() {
       // Replace loading with image (store blob in message)
       setMessages(prev => prev.map(msg =>
         msg.type === 'loading' ?
-          { type: 'image', image: imageUrl, imageBlob: imageBlob, structuredPrompt: lastStructuredPrompt, from: 'assistant', id: msg.id } :
+          { type: 'image', image: imageUrl, imageBlob: imageBlob, structuredPrompt: structuredPromptOut, seed: seedOut, from: 'assistant', id: msg.id } :
           msg
       ));
 
@@ -756,139 +889,134 @@ function App() {
     }
   }, [showUpload]);
 
-  React.useEffect(() => {
-    if (!replicateToken) {
-      setShowTokenModal(true);
-    } else {
-      setShowTokenModal(false);
-    }
-  }, [replicateToken]);
-
-  function handleTokenSubmit(e) {
-    e.preventDefault();
-    if (!tokenInput.trim()) {
-      setTokenError('Please enter your Replicate API token.');
-      return;
-    }
-    localStorage.setItem('replicateApiToken', tokenInput.trim());
-    setReplicateToken(tokenInput.trim());
-    setShowTokenModal(false);
-    setTokenInput('');
-    setTokenError('');
-  }
-
-  function handleTokenLogout() {
-    localStorage.removeItem('replicateApiToken');
-    setReplicateToken('');
-    setShowTokenModal(true);
-  }
+  // No token required with BRIA backend; token UI removed
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#5300c9] to-[#8800ff] md:overflow-auto overflow-hidden">
-      {/* Replicate API Token Modal */}
-      {showTokenModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
-          <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full flex flex-col items-center">
-            <img src="/bria-logo.svg" className="w-1/3 mx-auto mb-4" alt="Bria" />
-            <h2 className="text-xl font-bold mb-2 text-center">Enter your Replicate API Token</h2>
-            <p className="text-gray-700 text-center mb-4">To use Kontext Chat, you'll need a Replicate API token.<br />
-              <a href="https://replicate.com/account/api-tokens?new-token-name=kontext-chat" target="_blank" rel="noopener noreferrer" className="underline text-[#5300c9]">Create a token here</a> and paste it below.
-            </p>
-            <form onSubmit={handleTokenSubmit} className="w-full flex flex-col items-center">
-              <input
-                type="text"
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 mb-2 text-base"
-                placeholder="Paste your Replicate API token"
-                value={tokenInput}
-                onChange={e => setTokenInput(e.target.value)}
-                autoFocus
-              />
-              {tokenError && <div className="text-red-600 text-sm mb-2">{tokenError}</div>}
-              <button
-                type="submit"
-                className="w-full bg-[#5300c9] hover:bg-[#3f00a0] text-white rounded-lg px-4 py-2 font-semibold transition-colors"
-              >
-                Save Token
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
       {/* Main Content */}
       <div className="min-h-screen flex flex-col md:flex md:items-center h-screen md:h-auto">
         {showUpload ? (
           /* Upload Section */
-          <div className="w-full md:max-w-4xl bg-white md:shadow-md flex flex-col h-screen md:h-auto overflow-hidden md:overflow-visible">
+          <div className="w-full md:max-w-6xl bg-white md:shadow-md flex flex-col h-screen md:h-auto overflow-hidden md:overflow-visible">
             {/* Logo */}
             <div className="p-4 md:p-2 bg-white border-b border-gray-200">
               <img src="/bria-logo.svg" className="w-1/3 md:w-1/4 mx-auto" alt="Bria" />
             </div>
             <PoweredByBanner />
 
-            {/* Upload Area */}
-            <div className="flex-1 flex flex-col p-4 md:p-6 overflow-y-auto md:overflow-visible pb-32 md:pb-6" style={{paddingBottom: 'calc(8rem + env(safe-area-inset-bottom))'}}>
-              {/* Intro Text */}
-              <div className="text-center mb-6">
-                <p className="text-gray-700 text-base md:text-lg">
-                  Chat with images to refine them.
-                </p>
-              </div>
-
-              <div
-                className={`border-2 border-dashed rounded-2xl p-6 md:p-12 text-center cursor-pointer mb-12 ${
-                  dragActive
-                    ? 'border-green-400 bg-green-50 text-green-700'
-                    : 'border-gray-300 bg-gray-50 hover:border-[#5300c9] hover:bg-purple-50 text-gray-700 hover:text-[#5300c9]'
-                }`}
-                onClick={() => fileInputRef.current?.click()}
-              >
-                <div className="upload-content">
-                  <svg className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-3 md:mb-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
-                  </svg>
-                  <h3 className="text-lg md:text-xl mb-1 md:mb-2 font-semibold">Upload an image to get started</h3>
-                  <p className="text-base md:text-lg opacity-80">Drag and drop an image here, or click to browse</p>
-                  <input
-                    type="file"
-                    ref={fileInputRef}
-                    accept="image/*"
-                    className="hidden"
-                    onChange={handleFileSelect}
-                  />
-                </div>
-              </div>
-
-              {/* Starter Images Section */}
-              <div className="text-center text-gray-600 text-base mb-4 font-medium">Or choose a starting image:</div>
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-                {starterImages.map((starter, idx) => (
-                  <button
-                    key={idx}
-                    className="aspect-square w-full rounded-xl overflow-hidden border-2 border-gray-200 hover:border-orange-400 focus:border-orange-500 transition-all shadow-sm bg-gray-50 group"
-                    onClick={() => handleStarterImageClick(starter)}
+            {/* Two-column first-screen layout */}
+            <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 p-4 md:p-6 overflow-y-auto md:overflow-visible pb-32 md:pb-6">
+              {/* Left: Generate from scratch */}
+              <div className="bg-white border border-gray-200 rounded-2xl p-4 md:p-6 shadow-sm">
+                <h3 className="text-lg md:text-xl font-semibold mb-2">Generate an image from scratch</h3>
+                <p className="text-gray-600 mb-4">Enter a prompt. We’ll create an image for you.</p>
+                <form onSubmit={(e) => { e.preventDefault(); generateScratchImage(); }} className="flex flex-col gap-3">
+                  <textarea
+                    value={scratchInput}
+                    onChange={(e) => setScratchInput(e.target.value)}
+                    placeholder="Describe what you want to create..."
+                    className="w-full bg-gray-50 border border-gray-300 rounded-2xl px-4 py-3 text-base resize-y min-h-[100px]"
                     disabled={loading}
-                    title={starter.suggestedPrompt}
-                  >
-                    <img
-                      src={starter.imageUrl}
-                      alt={starter.suggestedPrompt}
-                      className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-200"
-                    />
-                  </button>
-                ))}
+                  />
+                  <div className="flex items-center justify-end">
+                    <button
+                      type="submit"
+                      disabled={!scratchInput.trim() || loading}
+                      className="px-5 py-2 rounded-full bg-[#5300c9] hover:bg-[#3f00a0] disabled:bg-gray-300 text-white font-semibold transition-colors"
+                    >
+                      {loading ? 'Generating...' : 'Generate'}
+                    </button>
+                  </div>
+                </form>
               </div>
 
-              {/* Footer Text */}
-              <div className="mt-8 pt-6 border-t border-gray-200">
-                <p className="text-gray-600 text-base md:text-lg leading-relaxed text-center">
-                  FIBO Chat is powered by <a href="https://replicate.com/bria/fibo?utm_source=project&utm_campaign=kontext-chat" className="underline text-[#5300c9] hover:text-[#3f00a0]">FIBO</a> on <a href="https://replicate.com?utm_source=project&utm_campaign=kontext-chat" className="underline text-[#5300c9] hover:text-[#3f00a0]">Replicate</a>.
-                </p>
+              {/* Right: Start with an image */}
+              <div className="bg-white border border-gray-200 rounded-2xl p-4 md:p-6 shadow-sm">
+                <h3 className="text-lg md:text-xl font-semibold mb-2">Start with an image</h3>
+                <p className="text-gray-600 mb-4">Upload an image (or pick a starter) and add a prompt to "inspire" a new image.</p>
+
+                <div
+                  className={`border-2 border-dashed rounded-2xl p-6 md:p-8 text-center cursor-pointer mb-6 ${
+                    dragActive
+                      ? 'border-green-400 bg-green-50 text-green-700'
+                      : 'border-gray-300 bg-gray-50 hover:border-[#5300c9] hover:bg-purple-50 text-gray-700 hover:text-[#5300c9]'
+                  }`}
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  <div className="upload-content">
+                    <svg className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-3 md:mb-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                    </svg>
+                    <h4 className="text-base md:text-lg mb-1 md:mb-2 font-semibold">Upload an image</h4>
+                    <p className="text-sm md:text-base opacity-80">Drag and drop an image here, or click to browse</p>
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      accept="image/*"
+                      className="hidden"
+                      onChange={handleFileSelect}
+                    />
+                  </div>
+                </div>
+
+                {/* Selected image preview (if any) */}
+                {(initialImagePreviewUrl) && (
+                  <div className="mb-6 flex items-center gap-4">
+                    <img src={initialImagePreviewUrl} alt="Selected" className="w-20 h-20 object-cover rounded-lg border" />
+                    <button
+                      onClick={() => { setInitialImageBlob(null); setInitialImagePreviewUrl(''); setInitialImageUrl(''); }}
+                      className="px-3 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg text-sm"
+                    >
+                      Remove image
+                    </button>
+                  </div>
+                )}
+
+                {/* Starter Images Section */}
+                <div className="text-gray-600 text-sm mb-2 font-medium">Or choose a starting image:</div>
+                <div className="grid grid-cols-3 md:grid-cols-5 gap-3 mb-6">
+                  {starterImages.map((starter, idx) => (
+                    <button
+                      key={idx}
+                      className="aspect-square w-full rounded-xl overflow-hidden border-2 border-gray-200 hover:border-orange-400 focus:border-orange-500 transition-all shadow-sm bg-gray-50 group"
+                      onClick={() => handleStarterImageClick(starter)}
+                      disabled={loading}
+                      title={starter.suggestedPrompt}
+                    >
+                      <img
+                        src={starter.imageUrl}
+                        alt={starter.suggestedPrompt}
+                        className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-200"
+                      />
+                    </button>
+                  ))}
+                </div>
+
+                {/* Prompt input and Generate button for image flow */}
+                <form onSubmit={(e) => { e.preventDefault(); generateInitialImageFromImage(); }} className="flex flex-col gap-3">
+                  <textarea
+                    value={imageInput}
+                    onChange={(e) => setImageInput(e.target.value)}
+                    placeholder="Describe how to transform the selected image..."
+                    className="w-full bg-gray-50 border border-gray-300 rounded-2xl px-4 py-3 text-base resize-y min-h-[100px]"
+                    disabled={loading}
+                  />
+                  <div className="flex items-center justify-end">
+                    <button
+                      type="submit"
+                      disabled={!imageInput.trim() || (!initialImageBlob && !initialImageUrl) || loading}
+                      className="px-5 py-2 rounded-full bg-[#5300c9] hover:bg-[#3f00a0] disabled:bg-gray-300 text-white font-semibold transition-colors"
+                    >
+                      {loading ? 'Inspiring...' : 'Inspire'}
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
         ) : (
           /* Chat Section */
-          <div className="w-full md:max-w-4xl bg-white md:shadow-md overflow-hidden flex flex-col h-screen md:h-screen relative">
+          <div className="w-full md:max-w-6xl bg-white md:shadow-md overflow-hidden flex flex-col min-h-0 h-screen md:h-screen relative">
             {/* Chat Header with Logo */}
             <div className="p-4 md:p-2 bg-white border-b border-gray-200 relative flex items-center flex-shrink-0">
               <button
@@ -907,30 +1035,19 @@ function App() {
                 onClick={resetApp}
                 title="Back to upload"
               />
-              {/* Token logout button */}
-              {replicateToken && (
-                <button
-                  onClick={handleTokenLogout}
-                  className="absolute right-4 w-8 h-8 bg-gray-200 hover:bg-red-500 text-gray-700 hover:text-white rounded-full flex items-center justify-center transition-all duration-200"
-                  title="Remove Replicate API Token"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-                  </svg>
-                </button>
-              )}
+              {/* No token button needed */}
             </div>
             <PoweredByBanner />
 
             {/* Chat Messages */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-4 pb-56 md:pb-6" ref={chatContainerRef}>
+            <div className="flex-1 overflow-y-auto p-6 space-y-4 min-h-[calc(100vh-240px)] pb-[300px] md:pb-[300px]" ref={chatContainerRef}>
               {messages.map((msg) => (
                 <div
                   key={msg.id}
                   className={`flex ${msg.from === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`relative max-w-sm md:max-w-md ${
+                    className={`relative max-w-sm md:max-w-lg ${
                       msg.from === 'user'
                         ? 'bg-gradient-to-br from-blue-500 to-purple-600 text-white rounded-3xl px-4 py-3'
                         : msg.from === 'system'
